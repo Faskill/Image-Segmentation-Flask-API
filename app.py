@@ -130,6 +130,22 @@ OUTPUT_CLASSES = 8
 model = unet_model(output_channels=OUTPUT_CLASSES)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[dice_coeff, 'accuracy'])
 
+import boto3
+s3 = boto3.resource(service_name='s3',
+                   region_name='eu-west-3',
+                    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+                   )
+
+bucket = os.environ.get('S3_BUCKET_NAME')
+
+keys=[]
+for obj in s3.Bucket(bucket).objects.all():
+    keys.append(obj.key)
+
+for key in keys:
+    s3.Bucket('pro8').download_file(Key=key, Filename=key)
+
 model.load_weights('model/weights.28.ckpt')
 
 target_img = os.path.join(os.getcwd() , 'static/images')
