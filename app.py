@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 #Importing packages
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 #Setting large figure size for Seaborn

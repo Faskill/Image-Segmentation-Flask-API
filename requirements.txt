@@ -2,7 +2,6 @@ gunicorn
 flask
 tensorflow-cpu
 numpy
-pandas
 matplotlib
 seaborn
 dill
@@ -11,3 +10,4 @@ pillow
 opencv-python-headless
 git+https://github.com/tensorflow/examples.git
 h5py
+boto3
