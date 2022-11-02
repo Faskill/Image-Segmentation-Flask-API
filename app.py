@@ -19,7 +19,6 @@ from skimage.transform import resize
 import tensorflow as tf
 
 tf.get_logger().setLevel('ERROR')
-import tensorflow_hub as hub
 
 from PIL import Image
 

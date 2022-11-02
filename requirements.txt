@@ -7,5 +7,6 @@ matplotlib
 seaborn
 dill
 scikit-image
+pillow
 opencv-python-headless
 git+https://github.com/tensorflow/examples.git
