@@ -137,7 +137,7 @@ s3 = boto3.resource(service_name='s3',
                     aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY']
                    )
 
-bucket = os.environ['S3_BUCKET_NAME']
+bucket = os.environ['S3_BUCKET']
 
 keys=[]
 for obj in s3.Bucket(bucket).objects.all():
