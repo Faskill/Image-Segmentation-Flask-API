@@ -8,4 +8,4 @@ seaborn
 dill
 scikit-image
 opencv-python
-tensorflow_examples
+git+https://github.com/tensorflow/examples.git
