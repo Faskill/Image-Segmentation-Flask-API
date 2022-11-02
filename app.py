@@ -131,7 +131,7 @@ OUTPUT_CLASSES = 8
 model = unet_model(output_channels=OUTPUT_CLASSES)
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[dice_coeff, 'accuracy'])
 
-model.load_weights('weights.28.ckpt')
+#model.load_weights('weights.28.ckpt')
 
 target_img = os.path.join(os.getcwd() , 'static/images')
 
