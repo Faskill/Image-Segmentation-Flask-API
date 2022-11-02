@@ -1,0 +1,13 @@
+gunicorn
+flask
+tensorflow
+numpy
+pandas
+matplotlib
+seaborn
+dill
+os
+shutil
+scikit-image
+opencv-python
+tensorflow_examples
