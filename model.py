@@ -45,34 +45,6 @@ def bilinear_upsample(image_tensor):
     upsampled = tf.image.resize(image_tensor, size=(img_height, img_width))
     return upsampled
 
-def unet_model(output_channels:int):
-    inputs = tf.keras.layers.Input(shape=[img_height, img_width, 3])
-
-    # Downsampling through the model
-    skips = down_stack(inputs)
-    x = skips[-1]
-    skips = reversed(skips[:-1])
-
-    # Upsampling and establishing the skip connections
-    for up, skip in zip(up_stack, skips):
-        x = up(x)
-        concat = tf.keras.layers.Concatenate()
-        x = concat([x, skip])
-
-    # This is the last layer of unet
-    last = tf.keras.layers.Conv2DTranspose(
-      filters=n_classes, kernel_size=3,
-      padding='same')  #64x64 -> 128x128
-
-    x = last(x)
-    
-    #Adding image segmentation layers
-    x = Lambda(bilinear_upsample, name='bilinear_upsample')(x)
-    x = Reshape((img_height*img_width, n_classes))(x)
-    x = Activation('softmax', name='final_softmax')(x)
-
-    return tf.keras.Model(inputs=inputs, outputs=x)
-
 def download_weights():
 	#Downloading model weights from Amazon S3
 	s3 = boto3.resource(service_name='s3',
@@ -120,8 +92,32 @@ def generate_model():
 	]
 
 	n_classes = 8
+	inputs = tf.keras.layers.Input(shape=[img_height, img_width, 3])
 
-	model = unet_model(output_channels=n_classes)
+    # Downsampling through the model
+    skips = down_stack(inputs)
+    x = skips[-1]
+    skips = reversed(skips[:-1])
+
+    # Upsampling and establishing the skip connections
+    for up, skip in zip(up_stack, skips):
+        x = up(x)
+        concat = tf.keras.layers.Concatenate()
+        x = concat([x, skip])
+
+    # This is the last layer of unet
+    last = tf.keras.layers.Conv2DTranspose(
+      filters=n_classes, kernel_size=3,
+      padding='same')  #64x64 -> 128x128
+
+    x = last(x)
+    
+    #Adding image segmentation layers
+    x = Lambda(bilinear_upsample, name='bilinear_upsample')(x)
+    x = Reshape((img_height*img_width, n_classes))(x)
+    x = Activation('softmax', name='final_softmax')(x)
+
+    model = tf.keras.Model(inputs=inputs, outputs=x)
 	model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[dice_coeff, 'accuracy'])
 
 	download_weights()
