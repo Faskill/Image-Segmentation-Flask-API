@@ -118,6 +118,6 @@ def generate_model():
 
 	download_weights()
 
-	model.load_weights('model/weights.07.ckpt')
+	model.load_weights('weights.07.ckpt')
 
 	return model
