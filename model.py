@@ -93,9 +93,7 @@ def generate_model():
 
 	n_classes = 8
 	inputs = tf.keras.layers.Input(shape=[img_height, img_width, 3])
-
-	# Downsampling through the model
-    skips = down_stack(inputs)
+	skips = down_stack(inputs)
     x = skips[-1]
     skips = reversed(skips[:-1])
 
