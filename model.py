@@ -61,7 +61,7 @@ def download_weights():
 	    keys.append(obj.key)
 
 	for key in keys:
-	    s3.Bucket('pro8').download_file(Key=key, Filename=key)
+	    s3.Bucket(bucket).download_file(Key=key, Filename=key)
 
 
 def generate_model():
