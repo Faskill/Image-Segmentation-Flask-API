@@ -28,7 +28,9 @@ from tensorflow.keras import backend as K
 
 import boto3
 
-
+img_height = 256
+img_width = 512
+batch_size = 16
 
 
 def dice_coeff(y_true, y_pred):
@@ -91,9 +93,6 @@ def download_weights():
 
 
 def generate_model():
-	img_height = 256
-	img_width = 512
-	batch_size = 16
 	base_model = tf.keras.applications.MobileNetV2(input_shape=[img_height, img_width, 3], include_top=False)
 
 	# Use the activations of these layers
