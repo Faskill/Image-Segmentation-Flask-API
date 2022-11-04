@@ -4,6 +4,10 @@ import numpy as np
 from skimage.transform import resize
 import cv2
 
+img_height = 256
+img_width = 512
+batch_size = 16
+
 #Defining visualization functions
 def create_mask(pred_mask,img):
         color_map = {
