@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
-
+from skimage import io
 
 #Importing visualization functions
 from visualization import *
 
 #Importing the model
 from model import *
+
 
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
