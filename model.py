@@ -4,6 +4,8 @@ import segmentation_models as sm
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Activation, BatchNormalization, Dropout, Reshape, Lambda
+from tensorflow.keras import Model
+
 import boto3
 
 img_height = 256
