@@ -52,6 +52,8 @@ def generate_model():
 
 	linknet.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
 
+	download_weights()
+
 	linknet.load_weights('weights.29.ckpt')
 
 	return linknet
